@@ -71,7 +71,7 @@ public class AccountController {
             return "account/registerMd5AndSalt";
         }
 
-        accountService.save(account);
+        accountService.save(account, "md5+salt");
         return "redirect:/account/loginMd5AndSalt";
     }
 
@@ -83,7 +83,7 @@ public class AccountController {
 
     @PostMapping("/loginMd5AndSalt")
     public String loginMd5AndSalt(@ModelAttribute("account") Account account, Model model) {
-        boolean isAuthenticated = accountService.authenticate(account.getUsername(), account.getPassword());
+        boolean isAuthenticated = accountService.authenticate(account.getUsername(), account.getPassword(), "md5+salt");
         if (!isAuthenticated) {
             model.addAttribute("loginError", "Tên đăng nhập hoặc mật khẩu không đúng.");
             return "account/loginMd5AndSalt";
@@ -111,7 +111,7 @@ public class AccountController {
             return "account/registerMd5AndSha256";
         }
 
-        accountService.save(account);
+        accountService.save(account, "md5+sha256");
         return "redirect:/account/loginMd5AndSha256";
     }
 
@@ -123,7 +123,7 @@ public class AccountController {
 
     @PostMapping("/loginMd5AndSha256")
     public String loginMd5AndSha256(@ModelAttribute("account") Account account, Model model) {
-        boolean isAuthenticated = accountService.authenticate(account.getUsername(), account.getPassword());
+        boolean isAuthenticated = accountService.authenticate(account.getUsername(), account.getPassword(), "md5+sha256");
         if (!isAuthenticated) {
             model.addAttribute("loginError", "Tên đăng nhập hoặc mật khẩu không đúng.");
             return "account/loginMd5AndSha256";
